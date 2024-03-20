@@ -5,6 +5,8 @@ import { TbLogout } from "react-icons/tb";
 import { TbCategoryPlus } from "react-icons/tb";
 import { LuBadgeCheck } from "react-icons/lu";
 import { FaCog } from "react-icons/fa";
+import { BsShop } from "react-icons/bs";
+import { MdEvent } from "react-icons/md";
 
 
 export const SideBarItem = [
@@ -14,53 +16,68 @@ export const SideBarItem = [
         label: 'Dashboard',
     },
     {
-        key: '/signup',
+        key: '/users',
         icon: <FaUsers size={22} />,
         label: 'Users',
-        children: [
-            {
-                key: '/free-users',
-                label: 'Free Users',
-            },
-            {
-                key: '/premium-users',
-                label: 'Premium Users',
-            },
-            {
-                key: '/premium-plus-users',
-                label: 'Premium Plus Users',
-            },
-        ]
+        // children: [
+        //     {
+        //         key: '/free-users',
+        //         label: 'Free Users',
+        //     },
+        //     {
+        //         key: '/premium-users',
+        //         label: 'Premium Users',
+        //     },
+        //     {
+        //         key: '/premium-plus-users',
+        //         label: 'Premium Plus Users',
+        //     },
+        // ]
+    },
+    {
+        key: '/shop',
+        icon: <BsShop size={22} />,
+        label: 'Shop',
+    },
+    {
+        key: '/event',
+        icon: <MdEvent size={22} />,
+        label: 'Event',
     },
     {
         key: '/income',
         icon: <FaRegCreditCard size={22} />,
         label: 'Income',
-        children: [
-            {
-                key: '/today',
-                label: 'Today',
-            },
-            {
-                key: '/weekly',
-                label: 'Weekly',
-            },
-            {
-                key: '/monthly',
-                label: 'Monthly',
-            },
-        ]
+        // children: [
+        //     {
+        //         key: '/today',
+        //         label: 'Today',
+        //     },
+        //     {
+        //         key: '/weekly',
+        //         label: 'Weekly',
+        //     },
+        //     {
+        //         key: '/monthly',
+        //         label: 'Monthly',
+        //     },
+        // ]
     },
     {
-        key: '/categories',
+        key: '/wallet',
         icon: <TbCategoryPlus size={22} />,
-        label: 'Categories',
+        label: 'Wallet',
     },
-    {
-        key: '/subscription-plan',
-        icon: <LuBadgeCheck size={22} />,
-        label: 'Subscription Plan',
-    },
+    // {
+    //     key: '/categories',
+    //     icon: <TbCategoryPlus size={22} />,
+    //     label: 'Categories',
+    // },
+    // {
+    //     key: '/subscription-plan',
+    //     icon: <LuBadgeCheck size={22} />,
+    //     label: 'Subscription Plan',
+    // },
     {
         key: '/settings',
         icon: <FaCog size={22} />,

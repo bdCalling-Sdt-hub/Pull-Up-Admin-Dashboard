@@ -19,6 +19,9 @@ import SubscriptionPlan from "../pages/Dashboard/SubscriptionPlan/SubscriptionPl
 import Categories from "../pages/Dashboard/Categories/Categories";
 import CategoriesDetails from "../pages/Dashboard/Categories/CategoriesDetails";
 import QuestionDiscussion from "../pages/Dashboard/Categories/QuestionDiscussion";
+import Shop from "../pages/Dashboard/Shop/Shop";
+import Event from "../pages/Dashboard/Event/Event";
+import Wallet from "../pages/Dashboard/Wallet/Wallet";
 
 export const router = createBrowserRouter([
     {
@@ -30,8 +33,16 @@ export const router = createBrowserRouter([
                 element: <Dashboard></Dashboard>
             },
             {
-                path: "/free-users",
+                path: "/users",
                 element: <FreeUsers></FreeUsers>
+            },
+            {
+                path: "/shop",
+                element: <Shop></Shop>
+            },
+            {
+                path: "/event",
+                element: <Event></Event>
             },
             {
                 path: "/premium-users",
@@ -42,8 +53,12 @@ export const router = createBrowserRouter([
                 element: <PremiumPlusUsers></PremiumPlusUsers>
             },
             {
-                path: "/today",
+                path: "/income",
                 element: <TodayIncome></TodayIncome>
+            },
+            {
+                path: "/wallet",
+                element: <Wallet></Wallet>
             },
             {
                 path: "/weekly",

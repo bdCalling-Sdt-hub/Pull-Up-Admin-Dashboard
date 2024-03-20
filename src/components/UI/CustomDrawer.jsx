@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Drawer } from 'antd';
-import userpic from '../../assets/profile_user.png'
 import { FaRegUser } from "react-icons/fa";
-import { CiLocationOn } from "react-icons/ci";
-import { BsCalendar2Date } from "react-icons/bs";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
+import star from '../../assets/Star.png'
 
 
 
@@ -27,11 +25,27 @@ const CustomDrawer = ({ data, open, setOpen }) => {
           <div
             style={{ display: "flex", gap: "15px", borderBottom: "1px solid #dddddd", paddingBottom: "20px", marginBottom: "10px", alignItems: "center" }} >
             <div>
-              <img width={120} style={{ borderRadius: "5px" }} src={userpic} alt="" />
+              <img width={120} style={{ borderRadius: "5px" }} src={data?.image} alt="" />
             </div>
-            <div style={{}}>
+            <div className="flex items-center justify-between">
               <p style={{ fontSize: "20px" }}>{data?.name}</p>
+              <p className="flex items-center">
+                <span>
+                  <img src={star} alt="star" />
+                </span>
+                ({data?.rating})
+              </p>
             </div>
+
+            {/* <div className="flex items-center justify-between">
+              <h1 className="text-[#454545] text-lg">{data?.name}</h1>
+              <p className="flex items-center">
+                <span>
+                  <img src={star} alt="star" />
+                </span>
+                ({data.rating})
+              </p>
+            </div> */}
           </div>
 
           <div className=' flex items-center gap-4 py-2'>
@@ -40,19 +54,21 @@ const CustomDrawer = ({ data, open, setOpen }) => {
           </div>
           <div className=' flex items-center gap-4 py-2'>
             <MdOutlineEmail color='#0071E3' />
-            <p style={{ fontSize: "18px" }}>{data?.email}</p>
+            <p style={{ fontSize: "18px" }}>{data?.contact?.email}</p>
           </div>
           <div className=' flex items-center gap-4 py-2'>
             <FaPhoneAlt color='#0071E3' />
-            <p style={{ fontSize: "18px" }}>{data?.number}</p>
+            <p style={{ fontSize: "18px" }}>{data?.contact?.phone}</p>
           </div>
-          <div className=' flex items-center gap-4 py-2'>
-            <BsCalendar2Date color='#0071E3' />
-            <p style={{ fontSize: "18px" }}>12/11/1997</p>
-          </div>
-          <div className=' flex items-center gap-4 py-2'>
-            <CiLocationOn color='#0071E3' />
-            <p style={{ fontSize: "18px" }}>abc 12 st avenue New York, USA</p>
+
+          <p className="text-[#454545] mt-4">{data?.details}</p>
+          <div className="mt-4">
+            <h3 className="text-[#454545] text-sm">Opening Hours:</h3>
+            <ul className="list-disc pl-4">
+              {data?.openingHours?.map((hour, index) => (
+                <li key={index}>{hour}</li>
+              ))}
+            </ul>
           </div>
 
         </div>

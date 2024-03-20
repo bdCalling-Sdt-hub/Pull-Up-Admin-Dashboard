@@ -8,6 +8,7 @@ import VerifyOTP from "../../../components/Settings/VerifyOTP/VerifyOTP";
 import UpdatePassword from "../../../components/Settings/UpdatePassword/UpdatePassword";
 import Support from "../../../components/Settings/Support/Support";
 import FAQ from "../../../components/Settings/FAQ/FAQ";
+import TermsAndCondition from "../../../components/Settings/TermsCondition/TermsAndCondition";
 // import SubscriptionPackage from "../../../../components/Settings/SubscriptionPackage/SubscriptionPackage";
 // import ChangePassword from "../../../components/Settings/ChangePassword/ChangePassword";
 // import LoginActivity from "../../../components/Settings/LoginActivity/LoginActivity";
@@ -33,7 +34,7 @@ const SettingPage = () => {
                     <h1
                         onClick={() => navigate("/settings")}
                         // font-['Montserrat']
-                        className="text-3xl flex items-center cursor-pointer font-semibold  text-primary border-b-[1px] border-primary pb-[30px]"
+                        className="text-3xl flex items-center cursor-pointer font-semibol  text-[#D07E2B] border-b-[1px] border-[#D07E2B] pb-[30px]"
                     >
                         <LiaAngleLeftSolid fontSize={30} />
                         {location.pathname === "/settings" && "Settings"}
@@ -50,8 +51,8 @@ const SettingPage = () => {
                             "Terms and Condition"}
                         {location.pathname === "/settings/support" &&
                             "Support"}
-                        {location.pathname === "/settings/faq" &&
-                            "FAQ"}
+                        {location.pathname === "/settings/terms" &&
+                            "Terms of Services"}
                         {location.pathname === "/settings/about-us" && "About Us"}
                         {location.pathname === "/settings/verify-otp" && "Verify OTP"}
                         {location.pathname === "/settings/update-password" &&
@@ -63,7 +64,7 @@ const SettingPage = () => {
                         {text === "login activity" && <LoginActivity />}
                         {/* {text === "trash" && <Trash />} */}
                         {text === "privacy policy" && <PrivacyPolicy />}
-                        {/* {text === "terms condition" && <TermsAndCondition />} */}
+                        {text === "terms" && <TermsAndCondition />}
                         {text === "support" && <Support />}
                         {text === "faq" && <FAQ />}
                         {text === "about us" && <AboutUs />}

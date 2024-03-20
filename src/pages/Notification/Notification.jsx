@@ -38,7 +38,7 @@ const Notification = () => {
     console.log(notificationData);
 
     return (
-        <div className="mt-[24px] border-secondary border-[1px] h-[780px] rounded-2xl">
+        <div className="mt-[24px] border-secondary border-[1px] h-[780px] rounded-2xl bg-white">
             <div className="p-[40px]">
                 <div className="border-black border-b-[1px] pb-[35px] mb-[18px]">
                     <h1 className="text-3xl font-semibold">
@@ -75,7 +75,11 @@ const Notification = () => {
                                     Fri, 12:30pm
                                 </h1>
                             </div>
+
+                            
                         </div>
+
+                        
                     </div>
                 </div>
                 <div className="mt-5">

@@ -2,7 +2,7 @@ import { FaEye } from "react-icons/fa";
 import Table from "../../../components/UI/Table.jsx";
 import { useState } from "react";
 import TableHeader from "./components/tableHeader.jsx";
-import dollar from '../../../assets/currency-dollar.png'
+import dollar from '../../../assets/Credit_Card_01.png'
 import CustomDrawerIncome from "../../../components/UI/CustomDrawerIncome.jsx";
 
 const TodayIncome = () => {
@@ -22,69 +22,83 @@ const TodayIncome = () => {
             key: "1",
             trxid: "#123456789",
             timedate: "Time & Date",
-            package: "Premium",
             amount: "$50"
         },
         {
             key: "2",
             trxid: "#123456789",
             timedate: "Time & Date",
-            package: "Premium",
             amount: "$50"
         },
         {
             key: "3",
             trxid: "#123456789",
             timedate: "Time & Date",
-            package: "Premium",
             amount: "$50"
         },
         {
             key: "4",
             trxid: "#123456789",
             timedate: "Time & Date",
-            package: "Premium",
             amount: "$50"
         },
         {
             key: "5",
             trxid: "#123456789",
             timedate: "Time & Date",
-            package: "Premium",
             amount: "$50"
         },
         {
             key: "6",
             trxid: "#123456789",
             timedate: "Time & Date",
-            package: "Free",
+            amount: "$50"
+        },
+        {
+            key: "7",
+            trxid: "#123456789",
+            timedate: "Time & Date",
+            amount: "$50"
+        },
+        {
+            key: "8",
+            trxid: "#123456789",
+            timedate: "Time & Date",
+            amount: "$50"
+        },
+        {
+            key: "9",
+            trxid: "#123456789",
+            timedate: "Time & Date",
+            amount: "$50"
+        },
+        {
+            key: "10",
+            trxid: "#123456789",
+            timedate: "Time & Date",
             amount: "$50"
         },
     ];
 
     const columns = [
         {
-            title: <p className="text-blue500">Trx ID</p>,
+            title: <p className="text-[#D0A65A]">Trx ID</p>,
             dataIndex: "trxid",
         },
         {
-            title: <p className="text-blue500">Time & Date</p>,
+            title: <p className="text-[#D0A65A]">Time & Date</p>,
             dataIndex: "timedate",
         },
         {
-            title: <p className="text-blue500">Package</p>,
-            dataIndex: "package",
-        },
-        {
-            title: <p className="text-blue500">Amount</p>,
+            title: <p className="text-[#D0A65A]">Amount</p>,
             dataIndex: "amount",
         },
         {
-            title: <p className="text-blue500">Action</p>,
+            title: <p className="text-[#D0A65A]">Action</p>,
             dataIndex: "key",
             render: function (_, data) {
                 return (
-                    <div className="text-blue500">
+                    <div className="text-[#D0A65A]">
                         <FaEye onClick={() => handleOnCline(data)} />
                     </div>
                 );

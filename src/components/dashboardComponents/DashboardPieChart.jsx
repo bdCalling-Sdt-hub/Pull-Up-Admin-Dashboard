@@ -1,20 +1,48 @@
+import { Dropdown, Space } from "antd";
 import { PieChart, Pie, Cell } from "recharts";
+import { DownOutlined } from '@ant-design/icons';
+
 const DashboardPieChart = () => {
   const data = [
-    { name: "Regular Users ", value: 300, color: "#0071E3" },
-    { name: "Premium User", value: 300, color: "#1D1D1F" },
-    { name: "Irregular Users", value: 500, color: "#E30000" },
+    { name: "Monthly ", value: 300, color: "#D0A65A" },
+    { name: "Weekly", value: 500, color: "#1D1D1F" },
+  ];
+
+  const items = [
+    {
+      label: <a href="#">January, 2024</a>,
+      key: '0',
+    },
+    {
+      label: <a href="#">February, 2024</a>,
+      key: '1',
+    },
+    {
+      label: 'March, 2024',
+      key: '2',
+    },
   ];
 
   return (
     <div className="bg-white rounded-lg px-[20px] pt-[16px]  pb-[12px] pe-6">
-      <p className="text-[18px] font-medium ps-6 ">Income Ratio</p>
-      <div className="ps-6 mt-[8px] mb-[18px]">
-        <h1 className="text-[24px] font-medium">
-          Current Week 17 Dec - 23 Dec
-        </h1>
-        <p className="text-[#686869] font-medium text-[18px]">in last 7 days</p>
+
+      <div className="flex justify-between items-center ps-6 mt-[8px] mb-[18px]">
+        <p className="text-xl font-bold">Total  Income</p>
+        <Dropdown
+          menu={{
+            items,
+          }}
+          trigger={['click']}
+        >
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              This Month
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
       </div>
+
       <div className="flex justify-center">
         <PieChart width={228} height={232}>
           <Pie
@@ -32,25 +60,20 @@ const DashboardPieChart = () => {
           </Pie>
         </PieChart>
       </div>
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-row gap-y-2 mt-10">
         <div className="flex items-center gap-x-4 ps-6">
-          <div className="w-[28px] h-[28px] bg-blue500 "></div>
+          <div className="w-[14px] h-[14px] bg-[#D0A65A] rounded-lg"></div>
           <h1 className="text-[18px] text-black500 font-medium">
-            Regular User (40%)
+            Monthly  (40%)
           </h1>
         </div>
         <div className="flex items-center gap-x-4 ps-6">
-          <div className="w-[28px] h-[28px] bg-black500 "></div>
+          <div className="w-[14px] h-[14px] bg-black500 rounded-lg"></div>
           <h1 className="text-[18px] text-black500 font-medium">
-            Premium User (50%)
+            Weekly (50%)
           </h1>
         </div>
-        <div className="flex items-center gap-x-4 ps-6">
-          <div className="w-[28px] h-[28px] bg-[#E30000] "></div>
-          <h1 className="text-[18px] text-black500 font-medium">
-            Premium Plus User (10%)
-          </h1>
-        </div>
+
       </div>
     </div>
   );

@@ -56,7 +56,7 @@ const PrivacyPolicy = () => {
             />
             <div
                 onClick={privacyAndPolicyDataSave}
-                className=" cursor-pointer w-full h-12 mt-5 p-2.5 bg-primary rounded-lg justify-center items-center gap-2.5 inline-flex"
+                className=" cursor-pointer w-full h-12 mt-5 p-2.5 bg-[#D07E2B] rounded-lg justify-center items-center gap-2.5 inline-flex"
             >
                 <div className="text-white text-lg font-semibold">
                     Save

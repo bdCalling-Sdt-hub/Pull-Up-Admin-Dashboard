@@ -126,7 +126,7 @@ const ChangePasswordPage = () => {
             </p>
             <button
                 onClick={handleChangePassword}
-                className="mt-5 bg-primary hover:bg-primary w-[750px] text-white font-bold py-3 px-4 rounded-md"
+                className="mt-5 bg-[#D07E2B] hover:bg-[#D07E2B] w-[750px] text-white font-bold py-3 px-4 rounded-md"
             >
                 Change Password
             </button>

@@ -40,7 +40,7 @@ const CustomDrawerIncome = ({ data, open, setOpen }) => {
             <p style={{ fontSize: "18px" }}>johndoe@gmail.com</p>
           </div>
 
-          <div className='bg-[#F5F5F7] p-4 rounded-lg mt-[60px]'>
+          <div className='bg-[#FAF6EF] p-4 rounded-lg mt-[60px]'>
             <p className='font-bold' style={{ fontSize: "18px" }}>Trx ID #123456789</p>
 
             <div className='flex justify-between mt-[36px]'>
@@ -65,7 +65,7 @@ const CustomDrawerIncome = ({ data, open, setOpen }) => {
               width: "92%",
             }}
           >
-            <Button
+            {/* <Button
               block
               style={{
                 background: "black",
@@ -75,7 +75,7 @@ const CustomDrawerIncome = ({ data, open, setOpen }) => {
             // onClick={handlePrint}
             >
               Download
-            </Button>
+            </Button> */}
           </div>
 
         </div>

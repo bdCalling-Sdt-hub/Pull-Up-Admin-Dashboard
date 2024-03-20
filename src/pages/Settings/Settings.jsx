@@ -15,11 +15,11 @@ const Settings = () => {
         //     title: "Subscription Package",
         //     link: "subscription-package",
         // },
-        {
-            key: "3",
-            title: "Login Activity",
-            link: "login-activity",
-        },
+        // {
+        //     key: "3",
+        //     title: "Login Activity",
+        //     link: "login-activity",
+        // },
         // {
         //   key: "4",
         //   title: "Trash",
@@ -47,8 +47,8 @@ const Settings = () => {
         },
         {
             key: "9",
-            title: "FAQ",
-            link: "faq",
+            title: "Terms of Services",
+            link: "terms",
         },
     ];
 
@@ -57,9 +57,9 @@ const Settings = () => {
     };
 
     return (
-        <div className="mt-[14px] border-secondary border-[1px] h-[80vh] rounded-2xl ">
+        <div className="mt-[14px] bg-white border-secondary border-[1px] h-[80vh] rounded-2xl ">
             <div className="p-[30px]">
-                <h1 className="text-3xl font-semibold text-[#0071E3] border-b-[1px] border-primary pb-[30px]">
+                <h1 className="text-3xl font-semibold text-[#D07E2B] border-b-[1px] border-[#D07E2B] pb-[30px]">
                     Settings
                 </h1>
                 <div>

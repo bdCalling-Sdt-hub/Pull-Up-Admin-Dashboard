@@ -1,12 +1,12 @@
 import { Col } from 'antd';
 import { FaUserGroup } from 'react-icons/fa6';
-import business from '../../assets/business.png'
-import shopping from '../../assets/shopping.png'
-import organization from '../../assets/organization.png'
+import business from '../../../assets/business.png'
+import shopping from '../../../assets/shopping.png'
+import organization from '../../../assets/organization.png'
 
 const DashboardUserInfo = () => {
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-col gap-4 ms-4">
             <Col>
                 <div className="flex justify-center items-center border-r-2 p-[12px] bg-white rounded">
                     <div className="pr-6">

@@ -10,6 +10,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { BsCalendar2Date } from "react-icons/bs";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
+import logo from "../../assets/categoryimage.png";
 // import baseAxios from "../../../../Config";
 
 const Profile = () => {
@@ -97,7 +98,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="mt-[24px] border-secondary border-[1px] rounded-2xl h-[780px] ">
+        <div className="mt-[24px] border-secondary border-[1px] rounded-2xl h-[780px] bg-white">
             <div className="p-[30px]">
                 {!profileEdit ? (
                     <>
@@ -112,6 +113,7 @@ const Profile = () => {
                                     width={150}
                                     height={150}
                                     style={{ borderRadius: "6px" }}
+                                    src={logo}
                                 // src={userFromLocalStorage.image?.publicFileUrl}
                                 />
                                 <div style={{ width: "400px" }}>

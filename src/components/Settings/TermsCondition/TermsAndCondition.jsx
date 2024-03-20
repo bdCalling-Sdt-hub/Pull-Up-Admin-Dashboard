@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 // import baseAxios from "../../../../Config";
 import Swal from "sweetalert2";
 
-const Support = () => {
+const TermsAndCondition = () => {
     const editor = useRef(null);
     const [content, setContent] = useState("");
 
@@ -55,7 +55,7 @@ const Support = () => {
             />
             <div
                 onClick={aboutUsDataSave}
-                className="cursor-pointer w-full h-12 mt-5 p-2.5 bg-[#D07E2B] rounded-lg justify-center items-center gap-2.5 inline-flex"
+                className=" cursor-pointer w-full h-12 mt-5 p-2.5 bg-[#D07E2B] rounded-lg justify-center items-center gap-2.5 inline-flex"
             >
                 <div className="text-white text-lg font-semibold">
                     Save
@@ -65,4 +65,4 @@ const Support = () => {
     );
 };
 
-export default Support;
+export default TermsAndCondition;

@@ -4,6 +4,10 @@ import { IoMdLock } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import bgImage from '../../assets/bg.png'
 import { inputThemes } from '../../themes';
+import { useSignInMutation } from '../../Redux/api/authApi';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../Redux/features/auth/authSlice';
+import Swal from 'sweetalert2';
 
 
 
@@ -11,9 +15,40 @@ const Signin = () => {
 
     const navigate = useNavigate()
 
-    const onFinish = (values) => {
+    const dispatch = useDispatch();
+    const [signInUser] = useSignInMutation();
+
+    const onFinish = async (values) => {
         console.log('Received values of form: ', values);
-        navigate("/")
+        // navigate("/")
+        try {
+            const response = await signInUser(values).unwrap();
+            console.log("response", response)
+
+            if (response) {
+                const userInfo = {
+                    ...response.data.user,
+                };
+                delete userInfo.password;
+
+                dispatch(
+                    setUser({ token: response?.data?.accessToken, user: userInfo })
+                );
+            }
+
+            Swal.fire(response?.message, "", "success");
+
+            navigate(
+                location?.state?.from?.pathname || "/",
+                {
+                    replace: true,
+                }
+            );
+
+        } catch (err) {
+            console.log(err);
+            Swal.fire(err?.data?.message, "", "error");
+        }
     };
 
     const handleForget = () => {
@@ -49,7 +84,7 @@ const Signin = () => {
                                 onFinish={onFinish}
                             >
                                 <Form.Item
-                                    name="username"
+                                    name="email"
                                     rules={[
                                         // {
                                         //     required: true,
@@ -57,7 +92,7 @@ const Signin = () => {
                                         // },
                                     ]}
                                 >
-                                    <Input style={{ padding: "10px 10px" }} prefix={<MdEmail className="site-form-item-icon" />} placeholder="Username" />
+                                    <Input style={{ padding: "10px 10px" }} prefix={<MdEmail className="site-form-item-icon" />} placeholder="Email" />
                                 </Form.Item>
                                 <Form.Item
                                     name="password"

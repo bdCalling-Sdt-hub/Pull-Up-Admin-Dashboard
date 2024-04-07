@@ -3,181 +3,182 @@ import { BiLocationPlus } from "react-icons/bi";
 import star from '../../../assets/Star.png'
 import CustomDrawer from "../../../components/UI/CustomDrawer";
 import { useState } from "react";
+import { useAllUsersQuery } from "../../../Redux/api/dashboardApi";
 
 const Shop = () => {
 
-    const shops = [
-        {
-            "id": 1,
-            "name": "Turkish Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.5,
-            "location": "Dhaka",
-            "details": "Turkish Café is a cozy place where you can enjoy authentic Turkish coffee and delicious pastries. Whether you're looking for a place to relax or catch up with friends, Turkish Café has you covered.",
-            "openingHours": [
-                "Monday-Friday: 8:00 AM - 10:00 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: Closed"
-            ],
-            "contact": {
-                "phone": "+880 123 456 789",
-                "email": "turkishcafe@example.com"
-            }
-        },
-        {
-            "id": 2,
-            "name": "Another Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.2,
-            "location": "Dhaka",
-            "details": "Another Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 7:00 AM - 9:00 PM",
-                "Saturday: 8:00 AM - 10:00 PM",
-                "Sunday: 10:00 AM - 6:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 987 654 321",
-                "email": "anothercafe@example.com"
-            }
-        },
-        {
-            "id": 3,
-            "name": "Third Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.0,
-            "location": "Dhaka",
-            "details": "Third Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 8:30 AM - 9:30 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: 10:00 AM - 8:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 111 222 333",
-                "email": "thirdcafe@example.com"
-            }
-        },
-        {
-            "id": 4,
-            "name": "Third Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.0,
-            "location": "Dhaka",
-            "details": "Third Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 8:30 AM - 9:30 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: 10:00 AM - 8:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 111 222 333",
-                "email": "thirdcafe@example.com"
-            }
-        },
-        {
-            "id": 5,
-            "name": "Third Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.0,
-            "location": "Dhaka",
-            "details": "Third Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 8:30 AM - 9:30 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: 10:00 AM - 8:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 111 222 333",
-                "email": "thirdcafe@example.com"
-            }
-        },
-        {
-            "id": 6,
-            "name": "Third Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.0,
-            "location": "Dhaka",
-            "details": "Third Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 8:30 AM - 9:30 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: 10:00 AM - 8:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 111 222 333",
-                "email": "thirdcafe@example.com"
-            }
-        },
-        {
-            "id": 7,
-            "name": "Third Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.0,
-            "location": "Dhaka",
-            "details": "Third Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 8:30 AM - 9:30 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: 10:00 AM - 8:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 111 222 333",
-                "email": "thirdcafe@example.com"
-            }
-        },
-        {
-            "id": 8,
-            "name": "Third Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.0,
-            "location": "Dhaka",
-            "details": "Third Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 8:30 AM - 9:30 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: 10:00 AM - 8:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 111 222 333",
-                "email": "thirdcafe@example.com"
-            }
-        },
-        {
-            "id": 9,
-            "name": "Third Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.0,
-            "location": "Dhaka",
-            "details": "Third Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 8:30 AM - 9:30 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: 10:00 AM - 8:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 111 222 333",
-                "email": "thirdcafe@example.com"
-            }
-        },
-        {
-            "id": 10,
-            "name": "Third Café",
-            "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            "rating": 4.0,
-            "location": "Dhaka",
-            "details": "Third Café description goes here.",
-            "openingHours": [
-                "Monday-Friday: 8:30 AM - 9:30 PM",
-                "Saturday: 9:00 AM - 11:00 PM",
-                "Sunday: 10:00 AM - 8:00 PM"
-            ],
-            "contact": {
-                "phone": "+880 111 222 333",
-                "email": "thirdcafe@example.com"
-            }
-        }
-    ]
+    // const shops = [
+    //     {
+    //         "id": 1,
+    //         "name": "Turkish Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.5,
+    //         "location": "Dhaka",
+    //         "details": "Turkish Café is a cozy place where you can enjoy authentic Turkish coffee and delicious pastries. Whether you're looking for a place to relax or catch up with friends, Turkish Café has you covered.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:00 AM - 10:00 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: Closed"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 123 456 789",
+    //             "email": "turkishcafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 2,
+    //         "name": "Another Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.2,
+    //         "location": "Dhaka",
+    //         "details": "Another Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 7:00 AM - 9:00 PM",
+    //             "Saturday: 8:00 AM - 10:00 PM",
+    //             "Sunday: 10:00 AM - 6:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 987 654 321",
+    //             "email": "anothercafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 3,
+    //         "name": "Third Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.0,
+    //         "location": "Dhaka",
+    //         "details": "Third Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:30 AM - 9:30 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: 10:00 AM - 8:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 111 222 333",
+    //             "email": "thirdcafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 4,
+    //         "name": "Third Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.0,
+    //         "location": "Dhaka",
+    //         "details": "Third Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:30 AM - 9:30 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: 10:00 AM - 8:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 111 222 333",
+    //             "email": "thirdcafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 5,
+    //         "name": "Third Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.0,
+    //         "location": "Dhaka",
+    //         "details": "Third Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:30 AM - 9:30 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: 10:00 AM - 8:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 111 222 333",
+    //             "email": "thirdcafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 6,
+    //         "name": "Third Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.0,
+    //         "location": "Dhaka",
+    //         "details": "Third Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:30 AM - 9:30 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: 10:00 AM - 8:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 111 222 333",
+    //             "email": "thirdcafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 7,
+    //         "name": "Third Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.0,
+    //         "location": "Dhaka",
+    //         "details": "Third Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:30 AM - 9:30 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: 10:00 AM - 8:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 111 222 333",
+    //             "email": "thirdcafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 8,
+    //         "name": "Third Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.0,
+    //         "location": "Dhaka",
+    //         "details": "Third Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:30 AM - 9:30 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: 10:00 AM - 8:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 111 222 333",
+    //             "email": "thirdcafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 9,
+    //         "name": "Third Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.0,
+    //         "location": "Dhaka",
+    //         "details": "Third Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:30 AM - 9:30 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: 10:00 AM - 8:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 111 222 333",
+    //             "email": "thirdcafe@example.com"
+    //         }
+    //     },
+    //     {
+    //         "id": 10,
+    //         "name": "Third Café",
+    //         "image": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+    //         "rating": 4.0,
+    //         "location": "Dhaka",
+    //         "details": "Third Café description goes here.",
+    //         "openingHours": [
+    //             "Monday-Friday: 8:30 AM - 9:30 PM",
+    //             "Saturday: 9:00 AM - 11:00 PM",
+    //             "Sunday: 10:00 AM - 8:00 PM"
+    //         ],
+    //         "contact": {
+    //             "phone": "+880 111 222 333",
+    //             "email": "thirdcafe@example.com"
+    //         }
+    //     }
+    // ]
 
 
     const [open, setOpen] = useState(false);
@@ -185,11 +186,17 @@ const Shop = () => {
 
     console.log(open)
 
-    const handleOnCline = (data) => {
-        setDrawerData(data)
+    const handleOnCline = (businessAccounts) => {
+        setDrawerData(businessAccounts)
         setOpen((prev) => !prev);
     }
 
+    const { data: allUserData } = useAllUsersQuery();
+    console.log("Package Data", allUserData)
+
+    const businessAccounts = allUserData?.data?.result?.filter(
+        (user) => user?.accountType === 'business'
+    );
 
     return (
         <div>
@@ -197,11 +204,11 @@ const Shop = () => {
             <CustomDrawer open={open} setOpen={setOpen} data={drawerData}></CustomDrawer>
 
             <div className="flex flex-wrap justify-center gap-4">
-                {shops.map((data) => (
+                {businessAccounts?.map((data) => (
                     <Card
                         key={data.id}
                         style={{ width: 300 }}
-                        cover={<img alt={data.name} src={data.image} />}
+                        cover={<img alt={data.name} src={data?.image?.publicFileUrl} style={{ height: "220px" }} />}
                         actions={[
                             <button onClick={() => handleOnCline(data)} className="bg-[#D0A65A] px-4 py-1 rounded-md text-white" key="details">
                                 Details
@@ -214,7 +221,7 @@ const Shop = () => {
                                 <span>
                                     <img src={star} alt="star" />
                                 </span>
-                                ({data.rating})
+                                ({data?.averageRating})
                             </p>
                         </div>
                         <p className="flex items-center">

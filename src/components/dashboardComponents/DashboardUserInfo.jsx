@@ -3,8 +3,31 @@ import { FaUserGroup } from 'react-icons/fa6';
 import business from '../../assets/business.png'
 import shopping from '../../assets/shopping.png'
 import organization from '../../assets/organization.png'
+import { useAllUsersQuery } from '../../Redux/api/dashboardApi';
 
 const DashboardUserInfo = () => {
+
+    const { data: allUserData } = useAllUsersQuery();
+    console.log("AllData", allUserData)
+
+    // Filter the data to get only Business Account type
+    const businessAccounts = allUserData?.data?.result?.filter(
+        (user) => user?.accountType === 'business'
+    );
+
+    const organisationAccounts = allUserData?.data?.result?.filter(
+        (user) => user?.accountType === 'organisation'
+    );
+
+    const shoppingAccounts = allUserData?.data?.result?.filter(
+        (user) => user?.accountType === 'shopping '
+    );
+
+    // Get the length of Business Account type data
+    const businessAccountsLength = businessAccounts ? businessAccounts.length : 0;
+    const organisationAccountsLength = organisationAccounts ? organisationAccounts.length : 0;
+    const shoppingAccountsLength = shoppingAccounts ? shoppingAccounts.length : 0;
+
     return (
         <div className="flex flex-row">
             <Col>
@@ -14,7 +37,7 @@ const DashboardUserInfo = () => {
                     </div>
                     <div>
                         <p className="text-black500 text-[20px] font-semibold">
-                            780
+                            {allUserData?.data?.result.length}
                         </p>
                         <p className="text-[20px] text-[#454545] font-light">
                             Total Account
@@ -29,7 +52,7 @@ const DashboardUserInfo = () => {
                     </div>
                     <div>
                         <p className="text-black500 text-[20px] font-semibold">
-                            780
+                            {organisationAccountsLength}
                         </p>
                         <p className="text-[19px] text-[#454545] font-light">
                             Organization Account
@@ -44,7 +67,7 @@ const DashboardUserInfo = () => {
                     </div>
                     <div>
                         <p className="text-black500 text-[20px] font-semibold">
-                            780
+                            {shoppingAccountsLength}
                         </p>
                         <p className="text-[20px] text-[#454545] font-light">
                             Shopping Account
@@ -59,7 +82,7 @@ const DashboardUserInfo = () => {
                     </div>
                     <div>
                         <p className="text-black500 text-[20px] font-semibold">
-                            780
+                            {businessAccountsLength}
                         </p>
                         <p className="text-[20px] text-[#454545] font-light">
                             Business Account

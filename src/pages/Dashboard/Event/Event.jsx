@@ -4,6 +4,7 @@ import star from '../../../assets/Star.png'
 import CustomDrawer from "../../../components/UI/CustomDrawer";
 import { useState } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import { useAllUsersQuery } from "../../../Redux/api/dashboardApi";
 
 const Event = () => {
 
@@ -192,17 +193,24 @@ const Event = () => {
     }
 
 
+    const { data: allUserData } = useAllUsersQuery();
+    console.log("Package Data", allUserData)
+
+    const organisationAccounts = allUserData?.data?.result?.filter(
+        (user) => user?.accountType === 'organisation'
+    );
+
     return (
         <div>
 
             <CustomDrawer open={open} setOpen={setOpen} data={drawerData}></CustomDrawer>
 
             <div className="flex flex-wrap justify-center gap-4">
-                {shops.map((data) => (
+                {organisationAccounts?.map((data) => (
                     <Card
                         key={data.id}
                         style={{ width: 300 }}
-                        cover={<img alt={data.name} src={data.image} />}
+                        cover={<img alt={data.name} src={data.image?.publicFileUrl} style={{ height: "220px" }} />}
                     // actions={[
                     //     <button onClick={() => handleOnCline(data)} className="bg-[#D0A65A] px-4 py-1 rounded-md text-white" key="details">
                     //         Details
@@ -215,7 +223,7 @@ const Event = () => {
                                 <span>
                                     <img src={star} alt="star" />
                                 </span>
-                                ({data.rating})
+                                ({data?.averageRating})
                             </p>
                         </div>
                         <div className="flex items-center justify-between">

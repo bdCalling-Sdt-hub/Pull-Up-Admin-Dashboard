@@ -1,4 +1,5 @@
 import { Table } from "antd";
+import { useAllUsersQuery } from "../../Redux/api/dashboardApi";
 
 
 const DashboardPackageUsers = () => {
@@ -6,7 +7,7 @@ const DashboardPackageUsers = () => {
     const columns = [
         {
             title: '#SL',
-            dataIndex: 'sl',
+            dataIndex: 'index',
             // filters: [
             //     {
             //         text: 'Joe',
@@ -39,52 +40,52 @@ const DashboardPackageUsers = () => {
         },
         {
             title: 'User Name',
-            dataIndex: 'userName',
+            dataIndex: 'name',
             // defaultSortOrder: 'descend',
             // sorter: (a, b) => a.userName - b.userName,
         },
         {
             title: 'Packages',
-            dataIndex: 'packages',
+            dataIndex: 'packageDuration',
             filters: [
                 {
                     text: 'Weekly',
-                    value: 'Weekly',
+                    value: 'weekly',
                 },
                 {
                     text: 'Monthly',
-                    value: 'Monthly',
+                    value: 'monthly',
                 },
             ],
-            onFilter: (value, record) => record.packages.indexOf(value) === 0,
+            onFilter: (value, record) => record.packageDuration.indexOf(value) === 0,
         },
     ];
-    const data = [
-        {
-            key: '1',
-            sl: '01',
-            userName: 'Benjamin Price',
-            packages: 'Weekly',
-        },
-        {
-            key: '2',
-            sl: '02',
-            userName: 'Benjamin Price',
-            packages: 'Monthly',
-        },
-        {
-            key: '3',
-            sl: '03',
-            userName: 'Benjamin Price',
-            packages: 'Weekly',
-        },
-        // {
-        //     key: '4',
-        //     sl: '04',
-        //     userName: 'Benjamin Price',
-        //     packages: 'Monthly',
-        // },
-    ];
+
+    const { data: allUserData } = useAllUsersQuery();
+    console.log("Package Data", allUserData)
+
+    const packageDurationData = allUserData?.data?.result?.filter(
+        (user) => user?.packageDuration === 'monthly' || user?.packageDuration === 'weekly'
+    );
+
+    const packageMapData = packageDurationData?.map((user, i) => {
+        return {
+            index: i + 1,
+            name: user.name,
+            packageDuration: user.packageDuration
+        }
+    })
+
+    const packageDurationMonth = allUserData?.data?.result?.filter(
+        (user) => user?.packageDuration === 'monthly'
+    );
+
+    const packageDurationWeekly = allUserData?.data?.result?.filter(
+        (user) => user?.packageDuration === 'weekly'
+    );
+
+    const packageDurationMonthLength = packageDurationMonth ? packageDurationMonth.length : 0;
+    const packageDurationWeeklyLength = packageDurationWeekly ? packageDurationWeekly.length : 0;
 
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
@@ -100,7 +101,7 @@ const DashboardPackageUsers = () => {
                     </h1>
                     <div className="flex flex-row justify-items-center items-center bg-white p-2 rounded">
                         <p className="text-black500 text-[16px] font-semibold">
-                            531
+                            {packageDurationWeeklyLength}
                         </p>
                         <p className="text-[16px] text-[#454545] font-light ml-2">
                             Weekly users
@@ -108,7 +109,7 @@ const DashboardPackageUsers = () => {
                     </div>
                     <div className="flex flex-row justify-items-center items-center bg-white p-2 rounded">
                         <p className="text-black500 text-[16px] font-semibold">
-                            780
+                            {packageDurationMonthLength}
                         </p>
                         <p className="text-[16px] text-[#454545] font-light ml-2">
                             Monthly users
@@ -116,7 +117,7 @@ const DashboardPackageUsers = () => {
                     </div>
                 </div>
 
-                <Table columns={columns} dataSource={data} onChange={onChange} />
+                <Table columns={columns} dataSource={packageMapData} onChange={onChange} />
 
             </div>
         </div>

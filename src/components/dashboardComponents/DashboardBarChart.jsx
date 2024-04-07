@@ -12,6 +12,7 @@ import {
   //   ResponsiveContainer,
 } from "recharts";
 import { DownOutlined } from '@ant-design/icons';
+import { useUserStatisticsQuery } from "../../Redux/api/dashboardApi";
 
 const data = [
   {
@@ -130,6 +131,10 @@ const items = [
 ];
 
 const DashboardBarChart = () => {
+
+  const { data: allUserData } = useUserStatisticsQuery();
+  console.log("AllData", allUserData)
+
   return (
     <div className="mt-4 mr-4">
       <div className="bg-[#FAF6EF] rounded-lg px-[20px] pt-[8px] pb-[12px] pe-6">

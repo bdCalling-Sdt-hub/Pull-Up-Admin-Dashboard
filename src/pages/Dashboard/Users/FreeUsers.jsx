@@ -9,6 +9,7 @@ import { FaUserGroup } from "react-icons/fa6";
 import business from '../../../assets/business.png'
 import shopping from '../../../assets/shopping.png'
 import organization from '../../../assets/organization.png'
+import { useAllUsersQuery } from "../../../Redux/api/dashboardApi.js";
 
 const FreeUsers = () => {
 
@@ -17,82 +18,82 @@ const FreeUsers = () => {
 
   console.log(open)
 
-  const handleOnCline = (data) => {
-    setDrawerData(data)
+  const handleOnCline = (usersMapData) => {
+    setDrawerData(usersMapData)
     setOpen((prev) => !prev);
   }
 
-  const data = [
-    {
-      key: "1",
-      sl: 1,
-      userName: "Akash",
-      accountType: "Business",
-    },
-    {
-      key: "2",
-      sl: 2,
-      userName: "Mostain",
-      accountType: "Organization",
-    },
-    {
-      key: "3",
-      sl: 3,
-      userName: "Istiak",
-      accountType: "Shopping",
-    },
-    {
-      key: "4",
-      sl: 4,
-      userName: "Opu",
-      accountType: "Shopping",
-    },
-    {
-      key: "5",
-      sl: 5,
-      userName: "Sakib",
-      accountType: "Business",
-    },
-    {
-      key: "6",
-      sl: 6,
-      userName: "Naim",
-      accountType: "Organization",
-    },
-    {
-      key: "7",
-      sl: 7,
-      userName: "Naim",
-      accountType: "Organization",
-    },
-    {
-      key: "8",
-      sl: 8,
-      userName: "Naim",
-      accountType: "Organization",
-    },
-    {
-      key: "9",
-      sl: 9,
-      userName: "Naim",
-      accountType: "Organization",
-    },
-    {
-      key: "10",
-      sl: 10,
-      userName: "Naim",
-      accountType: "Organization",
-    },
-  ];
+  // const data = [
+  //   {
+  //     key: "1",
+  //     sl: 1,
+  //     userName: "Akash",
+  //     accountType: "Business",
+  //   },
+  //   {
+  //     key: "2",
+  //     sl: 2,
+  //     userName: "Mostain",
+  //     accountType: "Organization",
+  //   },
+  //   {
+  //     key: "3",
+  //     sl: 3,
+  //     userName: "Istiak",
+  //     accountType: "Shopping",
+  //   },
+  //   {
+  //     key: "4",
+  //     sl: 4,
+  //     userName: "Opu",
+  //     accountType: "Shopping",
+  //   },
+  //   {
+  //     key: "5",
+  //     sl: 5,
+  //     userName: "Sakib",
+  //     accountType: "Business",
+  //   },
+  //   {
+  //     key: "6",
+  //     sl: 6,
+  //     userName: "Naim",
+  //     accountType: "Organization",
+  //   },
+  //   {
+  //     key: "7",
+  //     sl: 7,
+  //     userName: "Naim",
+  //     accountType: "Organization",
+  //   },
+  //   {
+  //     key: "8",
+  //     sl: 8,
+  //     userName: "Naim",
+  //     accountType: "Organization",
+  //   },
+  //   {
+  //     key: "9",
+  //     sl: 9,
+  //     userName: "Naim",
+  //     accountType: "Organization",
+  //   },
+  //   {
+  //     key: "10",
+  //     sl: 10,
+  //     userName: "Naim",
+  //     accountType: "Organization",
+  //   },
+  // ];
 
   const columns = [
     {
       title: <p className="text-blue500">#SL</p>,
-      dataIndex: "sl",
+      dataIndex: "index",
     },
     {
       title: <p className="text-blue500">User Name</p>,
-      dataIndex: "userName",
+      dataIndex: "name",
     },
     {
       title: <p className="text-blue500">Account Type</p>,
@@ -100,18 +101,18 @@ const FreeUsers = () => {
       filters: [
         {
           text: 'Shopping',
-          value: 'Shopping',
+          value: 'shopping',
         },
         {
           text: 'Organization',
-          value: 'Organization',
+          value: 'organisation',
         },
         {
           text: 'Business',
-          value: 'Business',
+          value: 'business',
         },
       ],
-      onFilter: (value, record) => record.accountType.indexOf(value) === 0,
+      onFilter: (value, record) => record.accountType?.indexOf(value) === 0,
     },
     {
       title: <p className="text-blue500">User Status</p>,
@@ -126,6 +127,51 @@ const FreeUsers = () => {
     },
   ];
 
+  const { data: allUserData } = useAllUsersQuery();
+  console.log("Package Data", allUserData)
+
+  const usersMapData = allUserData?.data?.result?.map((user, i) => {
+    return {
+      index: i + 1,
+      name: user.name,
+      accountType: user.accountType,
+      email: user.email,
+      image: user.image,
+      averageRating: user.averageRating,
+      phoneNumber: user.phoneNumber,
+      packageDuration: user.packageDuration,
+      businessDescription: user.businessDescription,
+      businessEmail: user.businessEmail,
+      businessHours: user.businessHours,
+      businessName: user.businessName,
+      businessNumber: user.businessNumber,
+      businessWebsite: user.businessWebsite,
+      organisationDescription: user.organisationDescription,
+      organisationEmail: user.organisationEmail,
+      organisationName: user.organisationName,
+      organisationNumber: user.organisationNumber,
+      organisationWebsite: user.organisationWebsite,
+    }
+  })
+
+  // Filter the data to get only Business Account type
+  const businessAccounts = allUserData?.data?.result?.filter(
+    (user) => user?.accountType === 'business'
+  );
+
+  const organisationAccounts = allUserData?.data?.result?.filter(
+    (user) => user?.accountType === 'organisation'
+  );
+
+  const shoppingAccounts = allUserData?.data?.result?.filter(
+    (user) => user?.accountType === 'shopping '
+  );
+
+  // Get the length of Business Account type data
+  const businessAccountsLength = businessAccounts ? businessAccounts.length : 0;
+  const organisationAccountsLength = organisationAccounts ? organisationAccounts.length : 0;
+  const shoppingAccountsLength = shoppingAccounts ? shoppingAccounts.length : 0;
+
   return (
     <div>
       <div className="flex flex-row gap-4 mx-16">
@@ -136,7 +182,7 @@ const FreeUsers = () => {
             </div>
             <div>
               <p className="text-black500 text-[20px] font-semibold">
-                780
+                {allUserData?.data?.result.length}
               </p>
               <p className="text-[20px] text-[#454545] font-light">
                 Total Account
@@ -151,7 +197,7 @@ const FreeUsers = () => {
             </div>
             <div>
               <p className="text-black500 text-[20px] font-semibold">
-                780
+                {organisationAccountsLength}
               </p>
               <p className="text-[19px] text-[#454545] font-light">
                 Organization Account
@@ -166,7 +212,7 @@ const FreeUsers = () => {
             </div>
             <div>
               <p className="text-black500 text-[20px] font-semibold">
-                780
+                {shoppingAccountsLength}
               </p>
               <p className="text-[20px] text-[#454545] font-light">
                 Shopping Account
@@ -181,7 +227,7 @@ const FreeUsers = () => {
             </div>
             <div>
               <p className="text-black500 text-[20px] font-semibold">
-                780
+                {businessAccountsLength}
               </p>
               <p className="text-[20px] text-[#454545] font-light">
                 Business Account
@@ -193,7 +239,7 @@ const FreeUsers = () => {
       <CustomDrawer open={open} setOpen={setOpen} data={drawerData}></CustomDrawer>
       {/* <div><TableHeader title={"Users"} icon={users} property1='Free Users ' property2='Total Users' data1='500' data2='1,234' /></div> */}
       <div className="mt-4 mx-16">
-        <Table columns={columns} data={data} />
+        <Table columns={columns} data={usersMapData} />
       </div>
 
     </div>

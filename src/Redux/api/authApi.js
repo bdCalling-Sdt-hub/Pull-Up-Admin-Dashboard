@@ -57,29 +57,17 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
-    RetrivemangerUsers: builder.query({
-      query: () => ({
-        url: "/users/managers-users",
-        method: "GET",
-      }),
-      providesTags: [tagTypes.user],
-    }),
-    ChangeUserStatus: builder.mutation({
-      query: (data) => ({
-        url: `/users/change-status/${data?.id}`,
-        method: "PATCH",
-        body: data?.body,
-      }),
-      invalidatesTags: [tagTypes.user],
-    }),
+
+    // Change Password
     ChangePassword: builder.mutation({
       query: (data) => ({
-        url: `/users/change-password/`,
+        url: `/users/change-password`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: [tagTypes.user],
     }),
+    // Forget password
     ForgetPassword: builder.mutation({
       query: (data) => ({
         url: `/users/forget-password`,
@@ -104,9 +92,7 @@ export const {
   useProfileQuery,
   useUpdatePassWordMutation,
   useUpdateProfileMutation,
-  useRetrivemangerUsersQuery,
   useSignupUserMutation,
-  useChangeUserStatusMutation,
   useSingleUserQuery,
   useUpdateUserByManagerMutation,
   useChangePasswordMutation,

@@ -5,6 +5,7 @@ import OtpInput from "react-otp-input";
 import { useNavigate, useParams } from "react-router-dom";
 // import baseAxios from "../../../../Config";
 import Swal from "sweetalert2";
+import { useForgetPasswordMutation, useVerifyForgetPasswordMutation } from "../../../Redux/api/authApi";
 
 const VerifyOTP = () => {
     let { email } = useParams();
@@ -12,53 +13,56 @@ const VerifyOTP = () => {
     const [otp, setOtp] = useState("");
     const [timer, setTimer] = useState(60);
 
-    const handleOtp = (e) => {
+    const [veryForgetPassword] = useVerifyForgetPasswordMutation();
+    const [forgetPassword] = useForgetPasswordMutation();
+
+    const handleOtp = async (e) => {
         e.preventDefault();
-        console.log(otp);
-        navigate("/settings/update-password");
-        // baseAxios
-        //     .post("/api/users/verify", { email: UserData.email, oneTimeCode: otp })
-        //     .then((response) => {
-        //         console.log(response);
-        //         console.log(response.data.message);
-        //         Swal.fire({
-        //             icon: "success",
-        //             title: response.data.message,
-        //         });
-        //         navigate("/settings/update-password");
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //         Swal.fire({
-        //             icon: "error",
-        //             title: "Oops...",
-        //             text: error.response.data.message,
-        //         });
-        //     });
+        // console.log(otp);
+        // navigate("/settings/update-password");
+
+        try {
+            const response = await veryForgetPassword({ oneTimeCode: otp }).unwrap();
+            console.log("response", response);
+
+            if (response) {
+                Swal.fire(response?.message, "", "success");
+                navigate("/settings/update-password");
+            }
+
+        } catch (err) {
+            console.log(err);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: err.response?.message,
+            });
+        }
     };
 
-    const handleResendOtp = (e) => {
+    const handleResendOtp = async (e) => {
         e.preventDefault();
         console.log("Resend Otp");
-        // baseAxios
-        //     .post("/api/users/forget-password", { email: UserData.email })
-        //     .then((response) => {
-        //         console.log(response);
-        //         console.log(response.data.message);
-        //         Swal.fire({
-        //             icon: "success",
-        //             title: "Resend OTP Sent Successfully",
-        //             text: "Please Check Your Email!",
-        //         });
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //         Swal.fire({
-        //             icon: "error",
-        //             title: "Oops...",
-        //             text: error.response.data.message,
-        //         });
-        //     });
+
+        try {
+            const response = await forgetPassword().unwrap();
+            console.log("response", response);
+
+            if (response) {
+                Swal.fire(response?.message, "", "success");
+                // navigate("/settings/verify-otp");
+            }
+
+        } catch (err) {
+            console.error("Forget Password Error:", err);
+
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: err.response?.message,
+            });
+        }
+        
     };
 
     const navigate = useNavigate();
@@ -72,7 +76,7 @@ const VerifyOTP = () => {
                 <OtpInput
                     value={otp}
                     onChange={setOtp}
-                    numInputs={6}
+                    numInputs={4}
                     // containerStyle={style.otpFormContainer}
                     inputStyle={{
                         width: "120px",

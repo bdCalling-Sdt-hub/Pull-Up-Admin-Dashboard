@@ -76,6 +76,16 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+    // Forget password Verify
+    VerifyForgetPassword: builder.mutation({
+      query: (data) => ({
+        url: `/users/fp-verify-code`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
+
     ResetPassword: builder.mutation({
       query: (data) => ({
         url: `/users/reset-password/`,
@@ -97,5 +107,6 @@ export const {
   useUpdateUserByManagerMutation,
   useChangePasswordMutation,
   useForgetPasswordMutation,
+  useVerifyForgetPasswordMutation,
   useResetPasswordMutation,
 } = authApi;

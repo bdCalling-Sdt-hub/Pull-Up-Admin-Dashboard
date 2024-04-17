@@ -13,7 +13,6 @@ const ChangePasswordPage = () => {
     const [newPassword, setNewPassword] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
 
-    const dispatch = useDispatch();
     const [changePassword] = useChangePasswordMutation();
     const [forgetPassword] = useForgetPasswordMutation();
 

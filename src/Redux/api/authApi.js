@@ -94,6 +94,34 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+
+    // Forget password with Email
+    ForgetPasswordEmail: builder.mutation({
+      query: (data) => ({
+        url: `/users/forgot-password`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
+    // Forget password Verify
+    VerifyForgetPasswordEmail: builder.mutation({
+      query: (data) => ({
+        url: `/users/verify-code`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
+    // Forget password Verify
+    ResetPasswordEmail: builder.mutation({
+      query: (data) => ({
+        url: `/users/updated-password`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
   }),
 });
 
@@ -108,5 +136,8 @@ export const {
   useChangePasswordMutation,
   useForgetPasswordMutation,
   useVerifyForgetPasswordMutation,
+  useForgetPasswordEmailMutation,
+  useVerifyForgetPasswordEmailMutation,
+  useResetPasswordEmailMutation,
   useResetPasswordMutation,
 } = authApi;

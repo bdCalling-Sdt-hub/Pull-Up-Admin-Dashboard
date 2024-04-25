@@ -6,14 +6,33 @@ import OtpForm from "../../../components/OtpForm/OtpForm";
 import bgImage from '../../../assets/bg.png'
 import { ConfigProvider } from "antd";
 import { inputThemes } from "../../../themes";
+import { useVerifyForgetPasswordEmailMutation } from "../../../Redux/api/authApi";
+import Swal from "sweetalert2";
 
 const SigninOtp = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (otp, otpError) => {
+    const email = sessionStorage.getItem('email');
+
+    const [forgetPassword] = useVerifyForgetPasswordEmailMutation();
+
+    const handleSubmit = async (otp, otpError) => {
         console.log(otp, otpError);
-        navigate("/resetpassword");
+        try {
+            const response = await forgetPassword({ oneTimeCode: otp, email }).unwrap();
+            console.log("response", response);
+
+            if (response) {
+                Swal.fire(response?.message, "", "success");
+                navigate("/resetpassword");
+            }
+
+        }
+        catch (error) {
+            console.log(error);
+        }
+
     };
 
     // const resendOtp = () => { };

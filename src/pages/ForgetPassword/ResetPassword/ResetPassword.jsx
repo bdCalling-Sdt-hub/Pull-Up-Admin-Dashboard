@@ -8,15 +8,30 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { inputThemes } from "../../../themes";
 import bgImage from '../../../assets/bg.png'
+import { useResetPasswordEmailMutation } from "../../../Redux/api/authApi";
+import Swal from "sweetalert2";
 
 export default function UpdatePassword() {
     const navigate = useNavigate();
 
+    const [resetPassword] = useResetPasswordEmailMutation();
+
+    const email = sessionStorage.getItem('email');
+
     const onSubmit = async (data) => {
-        navigate("/")
         try {
-            console.log("something", data);
-        } catch (error) { }
+            const response = await resetPassword({ password: data.password, email }).unwrap();
+            console.log("response", response);
+
+            if (response) {
+                Swal.fire(response?.message, "", "success");
+                navigate("/");
+            }
+
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
 
     return (

@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import style from "./OtpForm.module.css";
 
 const OtpForm = ({ btnText, btnStyle, otpBoxStyle, containerStyle, handleOtpSubmit, }) => {
-    const [otp, setOtp] = useState(new Array(6).fill(""));
+    const [otp, setOtp] = useState(new Array(5).fill(""));
     const [otpError, setOtpError] = useState("");
     const otpBoxReference = useRef([]);
 
@@ -83,7 +83,7 @@ const OtpForm = ({ btnText, btnStyle, otpBoxStyle, containerStyle, handleOtpSubm
                     type="primary"
                     htmlType="submit"
                     className="login-form-button"
-                    disabled={otp.join("").length !== 6}
+                    disabled={otp.join("").length !== 5}
                     // className={`${style.otpButton}`}
                     onClick={handleSubmit}
                     block

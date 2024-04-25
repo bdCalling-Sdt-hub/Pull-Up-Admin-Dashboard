@@ -8,7 +8,7 @@ import { useAllUsersQuery } from '../../Redux/api/dashboardApi';
 const DashboardUserInfo = () => {
 
     const { data: allUserData } = useAllUsersQuery();
-    console.log("AllData", allUserData)
+    // console.log("AllData", allUserData)
 
     // Filter the data to get only Business Account type
     const businessAccounts = allUserData?.data?.result?.filter(
@@ -20,7 +20,7 @@ const DashboardUserInfo = () => {
     );
 
     const shoppingAccounts = allUserData?.data?.result?.filter(
-        (user) => user?.accountType === 'shopping '
+        (user) => user?.accountType === 'shopping'
     );
 
     // Get the length of Business Account type data

@@ -11,9 +11,10 @@ const dashboardApi = baseApi.injectEndpoints({
             providesTags: [tagTypes.user],
         }),
         userStatistics: builder.query({
-            query: () => ({
+            query: (query) => ({
                 url: "/users/user-statistics",
                 method: "GET",
+                params: query,
             }),
             providesTags: [tagTypes.user],
         }),

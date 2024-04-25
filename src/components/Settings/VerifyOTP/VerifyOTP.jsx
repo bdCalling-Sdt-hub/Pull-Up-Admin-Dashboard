@@ -62,7 +62,7 @@ const VerifyOTP = () => {
                 text: err.response?.message,
             });
         }
-        
+
     };
 
     const navigate = useNavigate();
@@ -76,7 +76,7 @@ const VerifyOTP = () => {
                 <OtpInput
                     value={otp}
                     onChange={setOtp}
-                    numInputs={4}
+                    numInputs={5}
                     // containerStyle={style.otpFormContainer}
                     inputStyle={{
                         width: "120px",

@@ -1,4 +1,5 @@
 import { Table } from "antd";
+import { useTransactionsQuery } from "../../../Redux/api/dashboardApi";
 
 
 const TransactionHistory = () => {
@@ -10,7 +11,7 @@ const TransactionHistory = () => {
         },
         {
             title: 'User Name',
-            dataIndex: 'userName',
+            dataIndex: 'name',
         },
         {
             title: 'Date',
@@ -21,88 +22,31 @@ const TransactionHistory = () => {
             dataIndex: 'payment',
         },
     ];
-    const data = [
-        {
-            key: '1',
-            sl: '01',
-            userName: 'Benjamin Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Weekly',
-        },
-        {
-            key: '2',
-            sl: '02',
-            userName: 'Benjamin Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Monthly',
-        },
-        {
-            key: '3',
-            sl: '03',
-            userName: 'Benjamin Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Weekly',
-        },
-        {
-            key: '4',
-            sl: '04',
-            userName: 'Benjamin Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Monthly',
-        },
-        {
-            key: '5',
-            sl: '05',
-            userName: 'Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Monthly',
-        },
-        {
-            key: '6',
-            sl: '06',
-            userName: 'Benjamin Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Monthly',
-        },
-        {
-            key: '7',
-            sl: '07',
-            userName: 'Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Monthly',
-        },
-        {
-            key: '8',
-            sl: '08',
-            userName: 'Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Monthly',
-        },
-        {
-            key: '9',
-            sl: '09',
-            userName: 'Benjamin Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Monthly',
-        },
-        {
-            key: '10',
-            sl: '10',
-            userName: 'Price',
-            date: 'Mar 5,2025',
-            payment: '$ 12,000',
-            packages: 'Monthly',
-        },
-    ];
+
+    const { data: transactionsData } = useTransactionsQuery()
+
+    const formatTransactions = (data) => {
+        console.log("object: ", data)
+        return {
+            success: true,
+            message: "All Transactions Successfully",
+            data: {
+                result: data?.data?.result?.map((transaction, index) => ({
+                    // Include desired properties from the transaction object
+                    sl: index + 1,
+                    name: transaction?.userId?.name,
+                    date: transaction?.createdAt?.split("T")[0],
+                    payment: transaction?.paymentData?.amount,
+                    package: transaction.packages, // Assuming "packages" should be "package"
+                    // You can add more properties here as needed
+                })),
+            },
+        };
+    };
+
+    // Example usage
+    const formattedData = formatTransactions(transactionsData);
+
 
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
@@ -114,7 +58,7 @@ const TransactionHistory = () => {
                 <p className="text-2xl font-medium leading-relaxed text-center my-4">Transaction Activities</p>
 
 
-                <Table columns={columns} dataSource={data} onChange={onChange} />
+                <Table columns={columns} dataSource={formattedData?.data?.result} onChange={onChange} />
 
             </div>
         </div>

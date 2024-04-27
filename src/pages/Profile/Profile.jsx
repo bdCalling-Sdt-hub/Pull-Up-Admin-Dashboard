@@ -3,7 +3,7 @@
 import { Col, DatePicker, Image, Input, Row, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
 import { FaRegUser } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
@@ -11,9 +11,16 @@ import { BsCalendar2Date } from "react-icons/bs";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import logo from "../../assets/categoryimage.png";
+import { useProfileQuery, useUpdateProfileMutation } from "../../Redux/api/authApi";
+import { useNavigate } from "react-router-dom";
 // import baseAxios from "../../../../Config";
 
 const Profile = () => {
+
+    const [updateProfile] = useUpdateProfileMutation();
+    const { data: profileData } = useProfileQuery();
+    console.log(profileData)
+
     const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
     const [fileList, setFileList] = useState([
         {
@@ -25,23 +32,23 @@ const Profile = () => {
     ]);
     const [profileEdit, setProfileEdit] = useState(false);
     const [file, setFile] = useState(null);
-    const [fullName, setFullName] = useState(userFromLocalStorage?.fullName);
-    const [email, setEmail] = useState(userFromLocalStorage?.email);
+    const [name, setName] = useState(profileData?.data?.name);
+    const [email, setEmail] = useState(profileData?.data?.email);
     const [image, setImage] = useState();
     const [phoneNumber, setPhoneNumber] = useState(
-        userFromLocalStorage?.phoneNumber
+        profileData?.data?.phoneNumber
     );
-    const [dateOfBirth, setDateOfBirth] = useState(
-        userFromLocalStorage?.dateOfBirth
-    );
-    const [address, setAddress] = useState(userFromLocalStorage?.address);
+
+    useEffect(() => {
+        setName(profileData?.data?.name);
+        setName(profileData?.data?.email);
+        setName(profileData?.data?.phoneNumber);
+    }, [profileData?.data])
+
 
     const handleDatePickerChange = (date, dateString) => {
         console.log(date, dateString);
     };
-
-    // console.log(fullName, +" , " + email, +" , " + phoneNumber, +" , " + address);
-    // console.log(userFromLocalStorage);
 
     const handleChange = () => {
         setProfileEdit(true);
@@ -53,16 +60,13 @@ const Profile = () => {
         // console.log(newFileList[0].originFileObj);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const formData = new FormData();
 
         // Append individual fields to the FormData object
-        formData.append("fullName", fullName);
+        formData.append("name", name);
+        formData.append("email", email);
         formData.append("phoneNumber", phoneNumber);
-        formData.append("dateOfBirth", dateOfBirth);
-        formData.append("address", address);
-        formData.append("gender", "Male");
-        formData.append("countryCode", "+880");
 
         // Append the image file if you have it (assuming 'image' is a File object)
         if (image) {
@@ -71,30 +75,12 @@ const Profile = () => {
 
         console.log("form data", formData);
 
-        // baseAxios
-        //     .put(`/api/users/update`, formData, {
-        //         headers: {
-        //             // Do not set Content-Type here; Axios will set it automatically for FormData
-        //             "Content-Type": "multipart/form-data",
-        //             authorization: `Bearer ${localStorage.getItem("token")}`,
-        //         },
-        //     })
-        //     .then((res) => {
-        //         console.log(res.data);
-        //         // here localsotrage is updated
-        //         localStorage.setItem(
-        //             "yourInfo",
-        //             JSON.stringify(res.data.data.attributes)
-        //         );
-        //         setProfileEdit(false);
-        //     })
-        //     .catch((err) => {
-        //         if (err.response.data.message === "Invalid token") {
-        //             localStorage.removeItem("token");
-        //             localStorage.removeItem("yourInfo");
-        //         }
-        //         console.log(err);
-        //     });
+        try {
+            const response = await updateProfile(formData).unwrap();
+            console.log("kella fote ---->", response)
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (
@@ -113,12 +99,12 @@ const Profile = () => {
                                     width={150}
                                     height={150}
                                     style={{ borderRadius: "6px" }}
-                                    src={logo}
-                                // src={userFromLocalStorage.image?.publicFileUrl}
+                                    // src={logo}
+                                    src={profileData?.data?.image?.publicFileUrl}
                                 />
-                                <div style={{ width: "400px" }}>
-                                    <h2>{userFromLocalStorage?.fullName}</h2>
-                                </div>
+                                {/* <div style={{ width: "400px" }}>
+                                    <h2>{profileData?.data?.name}</h2>
+                                </div> */}
                             </div>
                             {/* <div>
                                 <button
@@ -136,7 +122,7 @@ const Profile = () => {
 
                                 <div className='bg-[#ececec] flex items-center gap-4 py-2 px-4 rounded-lg'>
                                     <FaRegUser color='#0071E3' />
-                                    <p style={{ fontSize: "18px" }}>Ann Marie</p>
+                                    <p style={{ fontSize: "18px" }}>{profileData?.data?.name}</p>
                                 </div>
                                 {/* <label htmlFor="">Name</label>
                                 <Input
@@ -157,7 +143,7 @@ const Profile = () => {
                                 /> */}
                                 <div className='bg-[#ececec] flex items-center gap-4 py-2 px-4 rounded-lg'>
                                     <MdOutlineEmail color='#0071E3' />
-                                    <p style={{ fontSize: "18px" }}>annmarie@gmail.com</p>
+                                    <p style={{ fontSize: "18px" }}>{profileData?.data?.email}</p>
                                 </div>
                             </Col>
                         </Row>
@@ -171,40 +157,10 @@ const Profile = () => {
                                 /> */}
                                 <div className='bg-[#ececec] flex items-center gap-4 py-2 px-4 rounded-lg'>
                                     <FaPhoneAlt color='#0071E3' />
-                                    <p style={{ fontSize: "18px" }}>+1 23444 2344</p>
+                                    <p style={{ fontSize: "18px" }}>{profileData?.data?.phoneNumber}</p>
                                 </div>
                             </Col>
 
-                        </Row>
-
-                        <Row gutter={15} style={{ marginBottom: "15px" }}>
-                            <Col span={24}>
-                                {/* <label htmlFor="">Phone Number</label>
-                                <Input
-                                    style={{ height: "45px" }}
-                                    defaultValue={userFromLocalStorage?.phoneNumber}
-                                /> */}
-                                <div className='bg-[#ececec] flex items-center gap-4 py-2 px-4 rounded-lg'>
-                                    <BsCalendar2Date color='#0071E3' />
-                                    <p style={{ fontSize: "18px" }}>11/12/1989</p>
-                                </div>
-                            </Col>
-
-                        </Row>
-                        <Row style={{ marginBottom: "15px" }}>
-                            <Col span={24}>
-                                {/* <label htmlFor="">Address</label>
-                                <Input.TextArea
-                                    style={{ height: "170px" }}
-                                    // defaultValue={userFromLocalStorage?.address}
-                                    defaultValue="address"
-                                    readOnly
-                                /> */}
-                                <div className='bg-[#ececec] flex items-center gap-4 py-2 px-4 rounded-lg'>
-                                    <CiLocationOn color='#0071E3' />
-                                    <p style={{ fontSize: "18px" }}>12 st avanue New York, USA</p>
-                                </div>
-                            </Col>
                         </Row>
 
 
@@ -273,8 +229,8 @@ const Profile = () => {
                                 <label htmlFor="">Name</label>
                                 <Input
                                     style={{ height: "45px" }}
-                                    defaultValue={userFromLocalStorage?.fullName}
-                                    onChange={(e) => setFullName(e.target.value)}
+                                    defaultValue={profileData?.data?.name}
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             </Col>
                         </Row>
@@ -285,7 +241,7 @@ const Profile = () => {
                                     disabled
                                     type="email"
                                     style={{ height: "45px" }}
-                                    defaultValue={userFromLocalStorage?.email}
+                                    defaultValue={profileData?.data?.email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </Col>
@@ -296,36 +252,11 @@ const Profile = () => {
                                 <label htmlFor="">Phone Number</label>
                                 <Input
                                     style={{ height: "45px" }}
-                                    defaultValue={userFromLocalStorage?.phoneNumber}
+                                    defaultValue={profileData?.data?.phoneNumber}
                                     onChange={(e) => setPhoneNumber(e.target.value)}
                                 />
                             </Col>
 
-                        </Row>
-                        <Row gutter={15} style={{ marginBottom: "15px" }}>
-                            <Col span={24}>
-                                <label htmlFor="">Date of Birth</label>
-                                <DatePicker
-                                    onChange={handleDatePickerChange}
-                                    style={{ height: "45px", width: "100%" }}
-                                    defaultValue={dayjs(
-                                        userFromLocalStorage?.dateOfBirth,
-                                        "DD-MM-YY"
-                                    )}
-                                />
-                            </Col>
-
-                        </Row>
-                        <Row style={{ marginBottom: "15px" }}>
-                            <Col span={24}>
-                                <label htmlFor="">Address</label>
-                                <Input.TextArea
-                                    style={{ height: "100px" }}
-                                    // defaultValue={userFromLocalStorage.address}
-                                    defaultValue="address"
-                                    onChange={(e) => setAddress(e.target.value)}
-                                />
-                            </Col>
                         </Row>
                         <button
                             type="submit"

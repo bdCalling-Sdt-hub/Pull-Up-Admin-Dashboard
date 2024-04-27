@@ -27,7 +27,7 @@ export default function UpdatePassword() {
                 Swal.fire(response?.message, "", "success");
                 navigate("/");
             }
-
+ 
         }
         catch (error) {
             console.log(error);

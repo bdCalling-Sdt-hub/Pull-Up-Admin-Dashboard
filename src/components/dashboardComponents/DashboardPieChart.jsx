@@ -1,12 +1,13 @@
 import { Dropdown, Space } from "antd";
 import { PieChart, Pie, Cell } from "recharts";
 import { DownOutlined } from '@ant-design/icons';
+import { useIncomeRatioQuery } from "../../Redux/api/dashboardApi";
 
 const DashboardPieChart = () => {
-  const data = [
-    { name: "Monthly ", value: 300, color: "#D0A65A" },
-    { name: "Weekly", value: 500, color: "#1D1D1F" },
-  ];
+  // const data = [
+  //   { name: "Monthly ", value: 300, color: "#D0A65A" },
+  //   { name: "Weekly", value: 500, color: "#1D1D1F" },
+  // ];
 
   const items = [
     {
@@ -22,6 +23,9 @@ const DashboardPieChart = () => {
       key: '2',
     },
   ];
+
+  const { data: incomeRatio } = useIncomeRatioQuery()
+  console.log("--------", incomeRatio)
 
   return (
     <div className="bg-white rounded-lg px-[20px] pt-[16px]  pb-[12px] pe-6">
@@ -46,7 +50,7 @@ const DashboardPieChart = () => {
       <div className="flex justify-center">
         <PieChart width={228} height={232}>
           <Pie
-            data={data}
+            data={incomeRatio?.data?.formattedData}
             dataKey="value"
             cx="50%"
             cy="50%"
@@ -54,7 +58,7 @@ const DashboardPieChart = () => {
             //   outerRadius={10}
             label
           >
-            {data.map((entry, index) => (
+            {incomeRatio?.data?.formattedData?.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
           </Pie>
@@ -64,13 +68,13 @@ const DashboardPieChart = () => {
         <div className="flex items-center gap-x-4 ps-6">
           <div className="w-[14px] h-[14px] bg-[#D0A65A] rounded-lg"></div>
           <h1 className="text-[18px] text-black500 font-medium">
-            Monthly  (40%)
+            Monthly  ({incomeRatio?.data?.monthlyPercent} %)
           </h1>
         </div>
         <div className="flex items-center gap-x-4 ps-6">
           <div className="w-[14px] h-[14px] bg-black500 rounded-lg"></div>
           <h1 className="text-[18px] text-black500 font-medium">
-            Weekly (50%)
+            Weekly ({incomeRatio?.data?.weeklyPercent} %)
           </h1>
         </div>
 

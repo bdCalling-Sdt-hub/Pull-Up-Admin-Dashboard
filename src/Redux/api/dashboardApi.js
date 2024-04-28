@@ -19,6 +19,14 @@ const dashboardApi = baseApi.injectEndpoints({
             providesTags: [tagTypes.user],
         }),
 
+        incomeRatio: builder.query({
+            query: () => ({
+                url: "/users/income-ratio",
+                method: "GET"
+            }),
+            providesTags: [tagTypes.user],
+        }),
+
 
         // -----------------------
         // profile: builder.query({
@@ -114,6 +122,7 @@ const dashboardApi = baseApi.injectEndpoints({
 export const {
     useAllUsersQuery,
     useUserStatisticsQuery,
+    useIncomeRatioQuery,
     // useProfileQuery,
     // useUpdatePassWordMutation,
     // useUpdateProfileMutation,

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Button, Drawer } from 'antd';
+import { Drawer } from 'antd';
 import userpic from '../../assets/profile_user.png'
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";

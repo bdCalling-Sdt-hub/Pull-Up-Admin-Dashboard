@@ -19,10 +19,20 @@ const dashboardApi = baseApi.injectEndpoints({
             providesTags: [tagTypes.user],
         }),
 
+        packagePurchaseRatio: builder.query({
+            query: (query) => ({
+                url: "/users/package-purchase-ratio",
+                method: "GET",
+                params: query,
+            }),
+            providesTags: [tagTypes.user],
+        }),
+
         incomeRatio: builder.query({
-            query: () => ({
+            query: (query) => ({
                 url: "/users/income-ratio",
-                method: "GET"
+                method: "GET",
+                params: query,
             }),
             providesTags: [tagTypes.user],
         }),
@@ -122,6 +132,7 @@ const dashboardApi = baseApi.injectEndpoints({
 export const {
     useAllUsersQuery,
     useUserStatisticsQuery,
+    usePackagePurchaseRatioQuery,
     useIncomeRatioQuery,
     // useProfileQuery,
     // useUpdatePassWordMutation,

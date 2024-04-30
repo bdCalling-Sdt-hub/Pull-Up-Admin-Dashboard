@@ -20,6 +20,8 @@ const DashboardBarChart = () => {
   const { data: allUserData } = useUserStatisticsQuery({ year: selectedYear, month: selectedMonth });
   const myData = allUserData?.data;
 
+  console.log("MYDATA====>", myData)
+
   const onChange = (date, dateString) => {
     console.log(date, dateString);
     setselectedYear(dateString.split("-")[0])

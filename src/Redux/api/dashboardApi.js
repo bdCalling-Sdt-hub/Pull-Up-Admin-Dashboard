@@ -125,6 +125,14 @@ const dashboardApi = baseApi.injectEndpoints({
                 params: query
             }),
             providesTags: [tagTypes.user],
+        }),
+        notification: builder.query({
+            query: (query) => ({
+                url: `/notifications`,
+                method: "GET",
+                params: query
+            }),
+            providesTags: [tagTypes.user],
         })
     }),
 });
@@ -145,4 +153,5 @@ export const {
     // useForgetPasswordMutation,
     // useResetPasswordMutation,
     useTransactionsQuery,
+    useNotificationQuery,
 } = dashboardApi;

@@ -1,8 +1,8 @@
 import DashboardPieChart from '../../../components/dashboardComponents/DashboardPieChart';
 import { Col, Row } from 'antd';
 import WalletUserInfo from './WalletUserInfo';
-import DashboardLineChart from '../../../components/dashboardComponents/dashboardLineChart';
 import TransactionHistory from './TransactionHistory';
+import DashboardLineChart from '../../../components/dashboardComponents/DashboardLineChart';
 
 const Wallet = () => {
     return (

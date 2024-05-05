@@ -1,7 +1,7 @@
 import { FaEye } from "react-icons/fa";
 import Table from "../../../components/UI/Table.jsx";
 import { useState } from "react";
-import TableHeader from "./components/tableHeader.jsx";
+import TableHeader from "./components/TableHeader.jsx";
 import dollar from '../../../assets/currency-dollar.png'
 import CustomDrawerIncome from "../../../components/UI/CustomDrawerIncome.jsx";
 

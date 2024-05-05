@@ -4,6 +4,7 @@ import star from '../../../assets/Star.png'
 import CustomDrawer from "../../../components/UI/CustomDrawer";
 import { useState } from "react";
 import { useAllUsersQuery } from "../../../Redux/api/dashboardApi";
+import showImage from "../../../utils/showImage";
 
 const Shop = () => {
 
@@ -208,7 +209,7 @@ const Shop = () => {
                     <Card
                         key={data.id}
                         style={{ width: 300 }}
-                        cover={<img alt={data.name} src={data?.image?.publicFileUrl} style={{ height: "220px" }} />}
+                        cover={<img alt={data.name} src={showImage(data?.image?.path)} style={{ height: "220px" }} />}
                         actions={[
                             <button onClick={() => handleOnCline(data)} className="bg-[#D0A65A] px-4 py-1 rounded-md text-white" key="details">
                                 Details

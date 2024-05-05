@@ -49,6 +49,10 @@ const DashboardPackageUsers = () => {
             dataIndex: 'packageDuration',
             filters: [
                 {
+                    text: 'Daily',
+                    value: 'daily',
+                },
+                {
                     text: 'Weekly',
                     value: 'weekly',
                 },
@@ -65,7 +69,7 @@ const DashboardPackageUsers = () => {
     console.log("Package Data", allUserData)
 
     const packageDurationData = allUserData?.data?.result?.filter(
-        (user) => user?.packageDuration === 'monthly' || user?.packageDuration === 'weekly'
+        (user) => user?.packageDuration === 'monthly' || user?.packageDuration === 'weekly' || user?.packageDuration === 'daily'
     );
 
     const packageMapData = packageDurationData?.map((user, i) => {
@@ -84,8 +88,13 @@ const DashboardPackageUsers = () => {
         (user) => user?.packageDuration === 'weekly'
     );
 
+    const packageDurationDaily = allUserData?.data?.result?.filter(
+        (user) => user?.packageDuration === 'daily'
+    );
+
     const packageDurationMonthLength = packageDurationMonth ? packageDurationMonth.length : 0;
     const packageDurationWeeklyLength = packageDurationWeekly ? packageDurationWeekly.length : 0;
+    const packageDurationDailyLength = packageDurationDaily ? packageDurationDaily.length : 0;
 
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
@@ -99,6 +108,14 @@ const DashboardPackageUsers = () => {
                     <h1 className="text-[28px] font-medium">
                         Package Users List
                     </h1>
+                    <div className="flex flex-row justify-items-center items-center bg-white p-2 rounded">
+                        <p className="text-black500 text-[16px] font-semibold">
+                            {packageDurationDailyLength}
+                        </p>
+                        <p className="text-[16px] text-[#454545] font-light ml-2">
+                            Daily users
+                        </p>
+                    </div>
                     <div className="flex flex-row justify-items-center items-center bg-white p-2 rounded">
                         <p className="text-black500 text-[16px] font-semibold">
                             {packageDurationWeeklyLength}

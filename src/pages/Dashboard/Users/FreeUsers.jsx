@@ -2,8 +2,6 @@ import { FaEye } from "react-icons/fa";
 import Table from "../../../components/UI/Table.jsx";
 import { useState } from "react";
 import CustomDrawer from "../../../components/UI/CustomDrawer.jsx";
-import TableHeader from "./components/tableHeader.jsx";
-import users from '../../../assets/site-bar-icon/users.png'
 import { Col } from "antd";
 import { FaUserGroup } from "react-icons/fa6";
 import business from '../../../assets/business.png'
@@ -164,7 +162,7 @@ const FreeUsers = () => {
   );
 
   const shoppingAccounts = allUserData?.data?.result?.filter(
-    (user) => user?.accountType === 'shopping '
+    (user) => user?.accountType === 'shopping'
   );
 
   // Get the length of Business Account type data

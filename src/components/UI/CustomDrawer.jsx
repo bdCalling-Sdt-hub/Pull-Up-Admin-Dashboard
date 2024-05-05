@@ -4,6 +4,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import star from '../../assets/Star.png'
+import showImage from '../../utils/showImage';
 
 
 
@@ -25,7 +26,7 @@ const CustomDrawer = ({ data, open, setOpen }) => {
           <div
             style={{ display: "flex", gap: "15px", borderBottom: "1px solid #dddddd", paddingBottom: "20px", marginBottom: "10px", alignItems: "center" }} >
             <div>
-              <img width={120} style={{ borderRadius: "5px" }} src={data?.image?.publicFileUrl} alt="" />
+              <img width={120} style={{ borderRadius: "5px" }} src={showImage(data?.image?.path)} alt="" />
             </div>
             <div className="flex items-center justify-between">
               <p style={{ fontSize: "20px" }}>{data?.name}</p>

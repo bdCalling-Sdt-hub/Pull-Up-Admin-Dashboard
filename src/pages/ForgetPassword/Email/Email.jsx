@@ -1,22 +1,33 @@
 /* eslint-disable react/no-unescaped-entities */
 import { MailOutlined } from "@ant-design/icons";
-import { Button, ConfigProvider, Form, Input, message } from "antd";
+import { Button, ConfigProvider, Form, Input } from "antd";
 import style from "./email.module.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { Flex } from "antd";
 import bgImage from '../../../assets/bg.png'
 import { inputThemes } from "../../../themes";
+import { useForgetPasswordEmailMutation } from "../../../Redux/api/authApi";
+import Swal from "sweetalert2";
 
 export default function Email() {
     const navigate = useNavigate();
 
-    const onSubmit = (data) => {
+    const [forgetPassword] = useForgetPasswordEmailMutation();
+
+    const onSubmit = async (data) => {
         try {
-            message.success("email send successfully");
-            navigate("/otp");
-            console.log(data);
-        } catch (error) {
+            const response = await forgetPassword(data).unwrap();
+            console.log("response", response);
+
+            if (response) {
+                sessionStorage.setItem("email", data.email);
+                Swal.fire(response?.message, "", "success");
+                navigate("/otp")
+            }
+
+        }
+        catch (error) {
             console.log(error);
         }
     };

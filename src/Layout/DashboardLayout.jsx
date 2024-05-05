@@ -8,6 +8,8 @@ import logo from "../assets/logo.png";
 import { menuSideBarItems } from "../themes/index";
 import { FaBell } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import { useProfileQuery } from "../Redux/api/authApi";
+import showImage from "../utils/showImage";
 
 const DashboardLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -39,6 +41,8 @@ const DashboardLayout = () => {
         console.log("Notification button clicked!");
     };
 
+
+    const { data: profileData } = useProfileQuery();
     const handleProfile = () => {
         setActiveButton('profile');
         navigate("/profile");
@@ -127,15 +131,12 @@ const DashboardLayout = () => {
                             }}
                         />
 
-                        <div className="pr-8">
+                        <div className="flex pr-8">
                             <Button
-                                // className="shadow-md"
                                 className={`shadow-md ${activeButton === 'notification' ? 'bg-black' : 'bg-slate-400'}`}
                                 type="text"
                                 icon={<FaBell color="#ffffff" size={24} />}
-                                onClick={() => {
-                                    handleNotification()
-                                }}
+                                onClick={handleNotification}
                                 style={{
                                     fontSize: "16px",
                                     width: 52,
@@ -143,21 +144,24 @@ const DashboardLayout = () => {
                                     marginRight: "16px"
                                 }}
                             />
-                            <Button
-                                // className="shadow-md"
-                                className={`shadow-md ${activeButton === 'profile' ? 'bg-black' : 'bg-slate-400'}`}
-                                type="text"
-                                icon={<FaUser color="#ffffff" size={24} />}
-                                onClick={() => {
-                                    handleProfile()
-                                }}
-                                style={{
-                                    fontSize: "16px",
-                                    width: 52,
-                                    height: 52,
-                                }}
-                            />
+
+                            {profileData?.data?.image ? (
+                                <img src={showImage(profileData?.data?.image?.path)} alt="Profile Image" onClick={handleProfile} style={{ width: 52, height: 52, borderRadius: 10 }} />
+                            ) : (
+                                <Button
+                                    className={`shadow-md ${activeButton === 'profile' ? 'bg-black' : 'bg-slate-400'}`}
+                                    type="text"
+                                    icon={<FaUser color="#ffffff" size={24} />}
+                                    onClick={handleProfile}
+                                    style={{
+                                        fontSize: "16px",
+                                        width: 52,
+                                        height: 52,
+                                    }}
+                                />
+                            )}
                         </div>
+
                     </Header>
                     <Content
                         style={{

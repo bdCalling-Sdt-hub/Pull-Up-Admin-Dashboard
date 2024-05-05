@@ -1,5 +1,5 @@
 import Table from "../../../components/UI/Table.jsx";
-import TableHeader from "./components/tableHeader.jsx";
+import TableHeader from "./components/TableHeader.jsx";
 import users from '../../../assets/site-bar-icon/users.png'
 import { FaEye } from "react-icons/fa";
 import { useState } from "react";

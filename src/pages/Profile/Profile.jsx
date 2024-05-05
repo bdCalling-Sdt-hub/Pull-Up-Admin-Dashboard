@@ -13,6 +13,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import logo from "../../assets/categoryimage.png";
 import { useProfileQuery, useUpdateProfileMutation } from "../../Redux/api/authApi";
 import { useNavigate } from "react-router-dom";
+import showImage from "../../utils/showImage";
 // import baseAxios from "../../../../Config";
 
 const Profile = () => {
@@ -100,7 +101,7 @@ const Profile = () => {
                                     height={150}
                                     style={{ borderRadius: "6px" }}
                                     // src={logo}
-                                    src={profileData?.data?.image?.publicFileUrl}
+                                    src={showImage(profileData?.data?.image?.path)}
                                 />
                                 {/* <div style={{ width: "400px" }}>
                                     <h2>{profileData?.data?.name}</h2>

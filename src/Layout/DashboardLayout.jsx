@@ -9,6 +9,7 @@ import { menuSideBarItems } from "../themes/index";
 import { FaBell } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { useProfileQuery } from "../Redux/api/authApi";
+import showImage from "../utils/showImage";
 
 const DashboardLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -145,7 +146,7 @@ const DashboardLayout = () => {
                             />
 
                             {profileData?.data?.image ? (
-                                <img src={profileData.data.image.publicFileUrl} alt="Profile Image" onClick={handleProfile} style={{ width: 52, height: 52, borderRadius: 10 }} />
+                                <img src={showImage(profileData?.data?.image?.path)} alt="Profile Image" onClick={handleProfile} style={{ width: 52, height: 52, borderRadius: 10 }} />
                             ) : (
                                 <Button
                                     className={`shadow-md ${activeButton === 'profile' ? 'bg-black' : 'bg-slate-400'}`}

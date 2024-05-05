@@ -10,6 +10,13 @@ const dashboardApi = baseApi.injectEndpoints({
             }),
             providesTags: [tagTypes.user],
         }),
+        getEvent: builder.query({
+            query: () => ({
+                url: "/event/event-join",
+                method: "GET",
+            }),
+            providesTags: [tagTypes.user],
+        }),
         userStatistics: builder.query({
             query: (query) => ({
                 url: "/users/user-statistics",
@@ -139,6 +146,7 @@ const dashboardApi = baseApi.injectEndpoints({
 
 export const {
     useAllUsersQuery,
+    useGetEventQuery,
     useUserStatisticsQuery,
     usePackagePurchaseRatioQuery,
     useIncomeRatioQuery,

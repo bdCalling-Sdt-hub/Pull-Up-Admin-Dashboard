@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Drawer } from 'antd';
 import { FaRegUser } from "react-icons/fa";
-import { FaPhoneAlt } from "react-icons/fa";
-import { MdLocalActivity, MdLocalAirport, MdLocalBar, MdLocationOn, MdOutlineDescription, MdOutlineEmail } from "react-icons/md";
-import star from '../../assets/Star.png'
+import { MdLocationOn, MdOutlineDescription } from "react-icons/md";
 import dayjs from 'dayjs';
 import { BiTime } from 'react-icons/bi';
 import showImage from '../../utils/showImage';

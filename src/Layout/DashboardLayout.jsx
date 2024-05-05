@@ -4,7 +4,7 @@ import { Layout, Menu, Button, theme, ConfigProvider } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { SideBarItem } from "../utils/SideBarItem";
 const { Header, Sider, Content } = Layout;
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 import { menuSideBarItems } from "../themes/index";
 import { FaBell } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";

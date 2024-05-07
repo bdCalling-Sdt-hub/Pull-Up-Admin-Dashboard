@@ -6,7 +6,7 @@ import { useState } from "react";
 const DashboardAllUsers = () => {
 
 
-    const [activeTab, setActiveTab] = useState('shopping');
+    const [activeTab, setActiveTab] = useState('business');
 
     console.log(activeTab)
 
@@ -31,6 +31,8 @@ const DashboardAllUsers = () => {
 
     const { data: transactionsData } = useTransactionsQuery({ userAccountType: activeTab })
 
+    console.log(transactionsData)
+
     const formatTransactions = (data) => {
         return {
             success: true,
@@ -41,7 +43,7 @@ const DashboardAllUsers = () => {
                     sl: index + 1,
                     name: transaction?.userId?.name,
                     date: transaction?.createdAt?.split("T")[0],
-                    payment: transaction?.paymentData?.amount,
+                    payment: transaction?.paymentData?.amount / 100,
                     package: transaction.packages, // Assuming "packages" should be "package"
                     // You can add more properties here as needed
                 })),
@@ -58,18 +60,18 @@ const DashboardAllUsers = () => {
     };
 
     const items = [
-        {
-            key: 'shopping',
-            label: 'Shopping',
-            children: <Table columns={columns} dataSource={formattedData?.data?.result} onChange={onChange} />,
-        },
+        // {
+        //     key: 'shopping',
+        //     label: 'Shopping',
+        //     children: <Table columns={columns} dataSource={formattedData?.data?.result} onChange={onChange} />,
+        // },
         {
             key: 'business',
             label: 'Business',
             children: <Table columns={columns} dataSource={formattedData?.data?.result} onChange={onChange} />,
         },
         {
-            key: 'organization',
+            key: 'organisation',
             label: 'Organization',
             children: <Table columns={columns} dataSource={formattedData?.data?.result} onChange={onChange} />,
         },

@@ -36,7 +36,7 @@ const TransactionHistory = () => {
                     sl: index + 1,
                     name: transaction?.userId?.name,
                     date: transaction?.createdAt?.split("T")[0],
-                    payment: transaction?.paymentData?.amount,
+                    payment: transaction?.paymentData?.amount / 100,
                     package: transaction.packages, // Assuming "packages" should be "package"
                     // You can add more properties here as needed
                 })),

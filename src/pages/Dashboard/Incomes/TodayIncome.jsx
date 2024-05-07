@@ -48,7 +48,7 @@ const TodayIncome = () => {
 
     let totalIncome = 0;
     transactionsData?.data?.result.forEach(payment => {
-        totalIncome += payment.paymentData.amount;
+        totalIncome += payment.paymentData.amount / 100;
     });
 
 
@@ -57,7 +57,7 @@ const TodayIncome = () => {
     transactionsData?.data?.result.forEach(payment => {
         const paymentDate = payment.createdAt.slice(0, 10);
         if (paymentDate === today) {
-            todayIncome += payment.paymentData.amount;
+            todayIncome += payment.paymentData.amount / 100;
         }
     });
 
@@ -73,7 +73,7 @@ const TodayIncome = () => {
                     name: transaction?.userId?.name,
                     email: transaction?.userId?.email,
                     date: transaction?.createdAt?.split("T")[0],
-                    payment: transaction?.paymentData?.amount,
+                    payment: transaction?.paymentData?.amount / 100,
                     trxId: transaction?.paymentData, // Assuming "packages" should be "package"
                     // You can add more properties here as needed
                 })),
